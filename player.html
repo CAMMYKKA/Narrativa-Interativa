@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <audio id="music" loop>
+        <source src="musica.mp3" type="audio/mpeg">
+        Seu navegador não suporta áudio.
+    </audio>
+
+    <div class="music-player">
+        <button id="playPauseBtn">▶</button>
+        <span id="currentTime">0:00</span>
+        <input type="range" id="progressBar" min="0" max="100" value="0">
+        <span id="duration">0:00</span>
+    </div>
+
+    <script>
+        const audio = document.getElementById("music");
+        const playPauseBtn = document.getElementById("playPauseBtn");
+        const progressBar = document.getElementById("progressBar");
+        const currentTimeDisplay = document.getElementById("currentTime");
+        const durationDisplay = document.getElementById("duration");
+
+        let isPlaying = false;
+
+        const savedTime = localStorage.getItem("musicTime");
+        if (savedTime) {
+            audio.currentTime = parseFloat(savedTime);
+        }
+
+        audio.volume = 0.5;
+
+        audio.play().catch(() => console.log("Autoplay bloqueado"));
+
+        audio.onloadedmetadata = () => {
+            durationDisplay.textContent = formatTime(audio.duration);
+        };
+
+        audio.ontimeupdate = () => {
+            progressBar.value = (audio.currentTime / audio.duration) * 100;
+            currentTimeDisplay.textContent = formatTime(audio.currentTime);
+            localStorage.setItem("musicTime", audio.currentTime); 
+        };
+
+        playPauseBtn.addEventListener("click", function () {
+            if (isPlaying) {
+                audio.pause();
+                playPauseBtn.textContent = "▶";
+            } else {
+                audio.play();
+                playPauseBtn.textContent = "❚❚";
+            }
+            isPlaying = !isPlaying;
+        });
+
+        progressBar.addEventListener("input", function () {
+            audio.currentTime = (progressBar.value / 100) * audio.duration;
+        });
+
+        function formatTime(seconds) {
+            const min = Math.floor(seconds / 60);
+            const sec = Math.floor(seconds % 60);
+            return `${min}:${sec < 10 ? "0" : ""}${sec}`;
+        }
+    </script>
+    
+</body>
+</html>
