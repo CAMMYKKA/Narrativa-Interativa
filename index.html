@@ -2,20 +2,79 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Você interpretará Anelise Lund, uma manipuladora de fogo."/>
     <title>O segredo de Anelise: Academia do Fogo</title>
     <link rel="stylesheet" href="style.css">
+    <style> 
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        #ficha-btn {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background-color: rgba(255, 99, 71, 1);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        #ficha-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        #ficha-container img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 8px;
+        }
+        #close-ficha {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            background: rgba(255, 99, 71, 1);
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 1002;
+        }
+    </style>
 </head>
 <body>
-
     <iframe src="player.html" class="music-frame" scrolling="no"></iframe>
-
-    </div>
     <audio id="audio" src="musica.mp3"></audio>
-    
     <script src="script.js"></script>
-
     <img src="aaa.png" class="aaa" alt="aaa">
+
+    <button id="ficha-btn">Ficha</button>
+    <div id="ficha-container">
+        <button id="close-ficha">X</button>
+        <img src="ficha.jpg" alt="Ficha do Personagem">
+    </div>
+    
+    <script>
+       document.getElementById("ficha-btn").addEventListener("click", function() {
+            document.getElementById("ficha-container").style.display = "flex";
+        });
+        document.getElementById("close-ficha").addEventListener("click", function() {
+            document.getElementById("ficha-container").style.display = "none";
+        });
+    </script>
 
     <div class="container">
         <div class="content">
@@ -29,8 +88,8 @@
                 <a href="tutorial.html" class="jogar-btn">Como Jogar</a>
                 <a href="creditos.html" class="jogar-btn">Créditos</a>
             </div>
-            
         </div>
     </div>
 </body>
 </html>
+
